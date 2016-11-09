@@ -1,5 +1,6 @@
 package com.music.store.controllers.admin;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -27,10 +28,9 @@ import com.music.store.services.ProductService;
 @Controller
 @RequestMapping("admin/products")
 public class ProductController {
-	
 	private String redirectProducts = "redirect:/admin/products";
 	
-	@Autowired()
+	@Autowired
 	private ProductService productService;
 	
 	@Autowired
@@ -61,7 +61,10 @@ public class ProductController {
 	}
 	
 	@GetMapping("show/{id}")
-	public ModelAndView getProduct(@PathVariable int id) {
+	public ModelAndView getProduct(@PathVariable int id) throws IOException {
+		if (id <= 0) {
+			throw new IOException("Undefined variable id or id is zero");
+		}
 		ModelAndView mav = new ModelAndView("products/show");
 		mav.addObject("product", productService.findId(id));
 		return mav;
