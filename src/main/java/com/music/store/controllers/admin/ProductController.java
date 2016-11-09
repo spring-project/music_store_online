@@ -2,10 +2,17 @@ package com.music.store.controllers.admin;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +32,15 @@ public class ProductController {
 	
 	@Autowired()
 	private ProductService productService;
+	
+	@Autowired
+	@Qualifier("productValidator")
+	private Validator validator;
+	
+	@InitBinder
+	private void initBinder(WebDataBinder binder) {
+		binder.setValidator(validator);
+	}
 	
 	@GetMapping({"", "/", "/index"})
 	public String index(Model model) {
@@ -58,7 +74,13 @@ public class ProductController {
 	}
 	
 	@PostMapping("new")
-	public String postNew(@ModelAttribute Product product) {
+	public String postNew(@Valid Product product, BindingResult bindingResult, Model model) {
+		
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("product", product);
+			return "products/new";
+		}
+		
 		productService.insert(product);
 		return redirectProducts;
 	}
@@ -70,7 +92,13 @@ public class ProductController {
 	}
 	
 	@PostMapping("edit/{id}")
-	public String postEdit(@PathVariable int id, @ModelAttribute Product product) {
+	public String postEdit(@PathVariable int id, @Valid Product product, BindingResult bindingResult, Model model) {
+		
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("product", product);
+			return "products/edit";
+		}
+		
 		productService.update(product);
 		return redirectProducts;
 	}

@@ -31,7 +31,7 @@
 	<hr/>
 	
 	<div class="table-responsive">
-		<table class="table table-striped table-hover table-sm">
+		<table class="table table-bordered table-striped table-hover table-sm">
 			<thead>
 				<tr>
 					<th class="text-center">

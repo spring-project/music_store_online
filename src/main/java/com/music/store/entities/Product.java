@@ -1,6 +1,7 @@
 package com.music.store.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "products")
@@ -10,13 +11,29 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_seq_id")
 	@SequenceGenerator(name = "product_seq_id", sequenceName = "product_seq_id")
 	private long id;
+	
+	@NotNull
 	private String name;
+	
 	private String description;
+	
+	@NotNull
 	private double price;
-	private String condition;
-	private String status;
+	
+	private int condition;
+	
+	private int status;
+	
+	@NotNull
 	private int unitStock;
+	
 	private String manufacturer;
+
+	public Product() {
+		super();
+		this.condition = 0;
+		this.status = 1;
+	}
 
 	public long getId() {
 		return id;
@@ -50,19 +67,19 @@ public class Product {
 		this.price = price;
 	}
 
-	public String getCondition() {
+	public int getCondition() {
 		return condition;
 	}
 
-	public void setCondition(String condition) {
+	public void setCondition(int condition) {
 		this.condition = condition;
 	}
 
-	public String getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 
