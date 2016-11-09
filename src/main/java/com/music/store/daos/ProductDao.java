@@ -9,7 +9,7 @@ public interface ProductDao {
     public Product findBy(String field, Object value);
     public List<Product> findAll();
     public List<Product> search(String keyword);
-    public boolean insert(Product product);
-    public boolean update(Product product);
-    public boolean delete(Product product);
+    public void insert(Product product);
+    public void update(Product product);
+    public void delete(Product product);
 }

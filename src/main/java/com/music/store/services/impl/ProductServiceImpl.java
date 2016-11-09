@@ -10,43 +10,37 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductDao productDao;
     
-    @Transactional
     public List<Product> findAll() {
         return productDao.findAll();
     }
 
-    @Transactional
     public Product findId(long id) {
         return productDao.findId(id);
     }
 
-    @Transactional
     public Product findBy(String field, Object value) {
         return productDao.findBy(field, value);
     }
 
-    @Transactional
     public List<Product> search(String keyword) {
         return productDao.search(keyword);
     }
 
-    @Transactional
-    public boolean insert(Product product) {
-        return productDao.insert(product);
+    public void insert(Product product) {
+        productDao.insert(product);
     }
 
-    @Transactional
-    public boolean update(Product product) {
-        return productDao.update(product);
+    public void update(Product product) {
+        productDao.update(product);
     }
 
-    @Transactional
-    public boolean delete(Product product) {
-        return productDao.delete(product);
+    public void delete(Product product) {
+        productDao.delete(product);
     }
 }

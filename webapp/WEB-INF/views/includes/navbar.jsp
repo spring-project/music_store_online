@@ -16,7 +16,7 @@
                 	<a href="<c:url value="/"/>">Home</a>
                 </li>
                 <li class="${ fullPath.contains('products/index') ? 'active' : '' }">
-                	<a href="<c:url value="products"/>">Product</a>
+                	<a href="<c:url value="/products"/>">Product</a>
                 </li>
             </ul>
         </div>
