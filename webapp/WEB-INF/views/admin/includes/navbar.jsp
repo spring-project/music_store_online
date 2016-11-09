@@ -13,16 +13,11 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="${ fullPath.contains('admin/index') ? 'active' : '' }">
-                	<a href="<c:url value="/"/>">Home</a>
+                	<a href="<c:url value="/admin"/>">Home</a>
                 </li>
                 <li class="${ fullPath.contains('admin/products/index') ? 'active' : '' }">
-                	<a href="<c:url value="/products"/>">Product</a>
+                	<a href="<c:url value="/admin/products"/>">Product</a>
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-	            <li>
-	            	<a href="<c:url value="/admin"/>">Dashboard</a>
-	            </li>
-          	</ul>
         </div>
     </div>

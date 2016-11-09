@@ -29,7 +29,7 @@ import com.music.store.services.ProductService;
 @RequestMapping("admin/products")
 public class ProductController {
 	private String redirectProducts = "redirect:/admin/products";
-	
+
 	@Autowired
 	private ProductService productService;
 	
@@ -47,7 +47,7 @@ public class ProductController {
 		List<Product> products = productService.findAll(); 
 		model.addAttribute("products", products);
 		model.addAttribute("key", "");
-		return "products/index";
+		return "admin/products/index";
 	}
 	
 	@RequestMapping(value = "search", method = {RequestMethod.GET, RequestMethod.POST})
@@ -57,7 +57,7 @@ public class ProductController {
 		}
 		model.addAttribute("products", productService.search(keyword));
 		model.addAttribute("key", keyword);
-		return "products/index";
+		return "admin/products/index";
 	}
 	
 	@GetMapping("show/{id}")
@@ -65,7 +65,7 @@ public class ProductController {
 		if (id <= 0) {
 			throw new IOException("Undefined variable id or id is zero");
 		}
-		ModelAndView mav = new ModelAndView("products/show");
+		ModelAndView mav = new ModelAndView("admin/products/show");
 		mav.addObject("product", productService.findId(id));
 		return mav;
 	}
@@ -73,7 +73,7 @@ public class ProductController {
 	@GetMapping("new")
 	public String getNew(Model model) {
 		model.addAttribute("product", new Product());
-		return "products/new";
+		return "admin/products/new";
 	}
 	
 	@PostMapping("new")
@@ -81,7 +81,7 @@ public class ProductController {
 		
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("product", product);
-			return "products/new";
+			return "admin/products/new";
 		}
 		
 		productService.insert(product);
@@ -91,7 +91,7 @@ public class ProductController {
 	@GetMapping("edit/{id}")
 	public String getEdit(@PathVariable int id, Model model) {		
 		model.addAttribute("product", productService.findId(id));
-		return "products/edit";
+		return "admin/products/edit";
 	}
 	
 	@PostMapping("edit/{id}")
@@ -99,7 +99,7 @@ public class ProductController {
 		
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("product", product);
-			return "products/edit";
+			return "admin/products/edit";
 		}
 		
 		productService.update(product);
@@ -109,7 +109,7 @@ public class ProductController {
 	@GetMapping("delete/{id}")
 	public String getDelete(@PathVariable int id, Model model) {
 		model.addAttribute("product", productService.findId(id));
-		return "products/delete";
+		return "admin/products/delete";
 	}
 	
 	@PostMapping("delete/{id}")
