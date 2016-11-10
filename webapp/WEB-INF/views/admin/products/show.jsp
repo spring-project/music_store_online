@@ -14,9 +14,16 @@
 					<h3>Form Detail Product</h3>
 					<hr/>
 				</div>
-				<div class="col-sm-12 col-md-3">
+				<div class="col-sm-12 col-md-4">
+					<br/>
+					<c:if test="${ not empty product.imageName }">
+						<img class="img-thumbnail" src="<c:url value="/resources/images/${ product.imageName }"/> "/>
+					</c:if>
+					<c:if test="${ empty product.imageName }">
+						<img class="img-thumbnail" src="https://dummyimage.com/338x236/#2c3e5/fff.jpg" alt="No Image" />
+					</c:if>
 				</div>
-				<div class="col-sm-12 col-md-9">
+				<div class="col-sm-12 col-md-8">
 					<h3>${ product.name }</h3>
 					<p><b>$ ${ product.price }</b></p>					
 					<p><b>Status:</b> ${ product.status }</p>

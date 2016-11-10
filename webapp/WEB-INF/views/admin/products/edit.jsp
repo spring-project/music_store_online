@@ -14,9 +14,16 @@
 					<h3>Form Update Product</h3>
 					<hr/>
 				</div>
-				<div class="col-sm-12 col-md-3">
+				<div class="col-sm-12 col-md-4">
+					<br/>
+					<c:if test="${ not empty product.imageName }">
+						<img class="img-thumbnail" src="<c:url value="/resources/images/${ product.imageName }"/>"/>
+					</c:if>
+					<c:if test="${ empty product.imageName }">
+						<img class="img-thumbnail" src="https://dummyimage.com/658x375/#2c3e5/fff.jpg" alt="No Image"/>
+					</c:if>
 				</div>
-				<div class="col-sm-12 col-md-9">
+				<div class="col-sm-12 col-md-8">
 					<%@ include file="form.jsp" %>
 				</div>
 			</div>

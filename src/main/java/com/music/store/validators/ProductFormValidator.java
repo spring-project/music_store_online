@@ -26,7 +26,6 @@ public class ProductFormValidator implements Validator {
 		}
 				
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "name.required");
-		
 	}
 
 }

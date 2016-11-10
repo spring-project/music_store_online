@@ -37,6 +37,9 @@
 					<th class="text-center">
 						Id
 					</th>
+					<th>
+						Image
+					</th>
 					<th class="text-center">
 						Name
 					</th>
@@ -56,6 +59,14 @@
 					<tr>
 						<td>
 							${ product.id }
+						</td>
+						<td>
+							<c:if test="${ not empty product.imageName }">
+								<img src="<c:url value="/resources/images/${ product.imageName }"/>" width="100px" height="50px"/>
+							</c:if>
+							<c:if test="${ empty product.imageName }">
+								<img src="https://dummyimage.com/100x50/#2c3e5/fff.jpg" alt="No Image"/>
+							</c:if>
 						</td>
 						<td>
 							<a href="<c:url value="/admin/products/show/${ product.id }"/>">${ product.name }</a>

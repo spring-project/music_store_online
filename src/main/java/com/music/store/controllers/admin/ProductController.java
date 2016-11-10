@@ -1,8 +1,13 @@
 package com.music.store.controllers.admin;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.music.store.entities.Product;
@@ -29,14 +35,18 @@ import com.music.store.services.ProductService;
 @RequestMapping("admin/products")
 public class ProductController {
 	private String redirectProducts = "redirect:/admin/products";
+	private Path path;
 
 	@Autowired
 	private ProductService productService;
 	
+	@Autowired(required = true)
+	private HttpServletRequest request;
+	
 	@Autowired
 	@Qualifier("productValidator")
 	private Validator validator;
-	
+
 	@InitBinder
 	private void initBinder(WebDataBinder binder) {
 		binder.setValidator(validator);
@@ -78,12 +88,11 @@ public class ProductController {
 	
 	@PostMapping("new")
 	public String postNew(@Valid Product product, BindingResult bindingResult, Model model) {
-		
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("product", product);
 			return "admin/products/new";
 		}
-		
+		saveImage(product);		
 		productService.insert(product);
 		return redirectProducts;
 	}
@@ -96,12 +105,11 @@ public class ProductController {
 	
 	@PostMapping("edit/{id}")
 	public String postEdit(@PathVariable int id, @Valid Product product, BindingResult bindingResult, Model model) {
-		
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("product", product);
 			return "admin/products/edit";
 		}
-		
+		saveImage(product);
 		productService.update(product);
 		return redirectProducts;
 	}
@@ -114,7 +122,43 @@ public class ProductController {
 	
 	@PostMapping("delete/{id}")
 	public String postDelete(@PathVariable int id, @ModelAttribute Product product) {
+		deleteImage(product);
 		productService.delete(product);
 		return redirectProducts;
+	}
+	
+	private void saveImage(Product product) {
+		MultipartFile image = product.getImage();	
+		if (image != null && !image.isEmpty()) {
+			String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+			path = Paths.get(rootDirectory + "\\resources\\images\\" + image.getOriginalFilename());
+			try {
+				image.transferTo(new File(path.toString()));
+				product.setImageName(image.getOriginalFilename());
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				System.out.println(ex.getClass().getSimpleName());
+				System.out.println(ex.getMessage());
+				throw new RuntimeException("Image saving failed.", ex);
+			}
+		}
+	}
+	
+	private void deleteImage(Product product) {
+		MultipartFile image = product.getImage();
+		if (image != null && !image.isEmpty()) {
+			String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+			path = Paths.get(rootDirectory + "\\resources\\images\\" + image.getOriginalFilename());
+			if (Files.exists(path)) {
+				try {
+					Files.delete(path);
+				} catch (IOException ex) {
+					ex.printStackTrace();
+					System.out.println(ex.getClass().getSimpleName());
+					System.out.println(ex.getMessage());
+					throw new RuntimeException("Image saving failed.", ex);
+				}
+			}
+		}
 	}
 }

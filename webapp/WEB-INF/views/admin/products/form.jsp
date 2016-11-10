@@ -2,7 +2,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-	<form:form method="post" commandName="product">
+	<form:form method="post" commandName="product" enctype="multipart/form-data">
 
 		<c:set var="unitStockError">
 			<form:errors path="unitStock"/>
@@ -69,13 +69,16 @@
 			</div>
 		</div>
 		
-		
-		
 		<div class="form-group">
 			<label for="description">Description:</label>
 		    <form:textarea path="description" class="form-control" placeholder="Decribe about this product"></form:textarea>
 		</div>
 		
+		<div class="form-group ${status.error ? 'has-error' : ''}">
+			<form:label path="image">Image:</form:label>
+		    <form:input path="image" class="form-control" type="file"/>
+		</div>
+
 		<div class="form-group">
 			<input type="submit" class="btn btn-primary" value="Submit">
 			&nbsp;&nbsp;

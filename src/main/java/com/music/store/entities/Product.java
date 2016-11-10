@@ -3,6 +3,8 @@ package com.music.store.entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.web.multipart.MultipartFile;
+
 @Entity
 @Table(name = "products")
 public class Product {
@@ -28,6 +30,11 @@ public class Product {
 	private int unitStock;
 	
 	private String manufacturer;
+	
+	@Transient
+	private MultipartFile image;
+	
+	private String imageName;
 
 	public Product() {
 		super();
@@ -97,6 +104,22 @@ public class Product {
 
 	public void setManufacturer(String manufacturer) {
 		this.manufacturer = manufacturer;
+	}
+	
+	public MultipartFile getImage() {
+		return image;
+	}
+
+	public void setImage(MultipartFile image) {
+		this.image = image;
+	}
+
+	public String getImageName() {
+		return imageName;
+	}
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
 	}
 
 	@Override
