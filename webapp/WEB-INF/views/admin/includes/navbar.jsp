@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:set var="auth" value="${ pageContext.request.userPrincipal }"/>
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -19,5 +21,17 @@
                 	<a href="<c:url value="/admin/products"/>">Product</a>
                 </li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+            	<li class="dropdown">
+                	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                		${ auth.name } <span class="caret"></span>
+                	</a>
+                	<ul class="dropdown-menu">
+                  		<li>
+                  			<a href="<c:url value="/j_spring_security_logout"/>">Logout</a>
+						</li>
+                	</ul>
+              	</li>
+          	</ul>
         </div>
     </div>

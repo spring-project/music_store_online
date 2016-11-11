@@ -4,7 +4,22 @@
 <%@ include file="../includes/header.jsp" %>
 
 <div class="container">
-	<h1>Admin/Index</h1>
+	
+	<br/>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<h1>Admin/Index</h1>
+			<hr/>
+			<c:if test="${ pageContext.request.userPrincipal.name != null }">
+			<p>
+				Welcome ${ pageContext.request.userPrincipal.name }
+				${ pageContext.request.remoteUser }
+			</p>
+			<a href="<c:url value="/j_spring_security_logout"/>">Logout</a>
+			</c:if>
+		</div>
+	</div>
+	
 </div>
 
 <%@ include file="../includes/footer.jsp" %>

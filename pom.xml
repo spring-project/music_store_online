@@ -23,26 +23,33 @@
       </plugin>
     </plugins>
   </build>
+  
+  <properties>
+  	<springframework.version>4.3.3.RELEASE</springframework.version>
+  	<springsecurity.version>3.1.4.RELEASE</springsecurity.version>
+  	<hibernate.version>5.2.3.Final</hibernate.version>
+  </properties>
+  
   <dependencies>
   	<!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
     <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-webmvc</artifactId>
-        <version>4.3.3.RELEASE</version>
+        <version>${springframework.version}</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->
     <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-orm</artifactId>
-        <version>4.3.3.RELEASE</version>
+        <version>${springframework.version}</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
     <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-jdbc</artifactId>
-        <version>4.3.3.RELEASE</version>
+        <version>${springframework.version}</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
@@ -63,14 +70,14 @@
     <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-core</artifactId>
-        <version>5.2.3.Final</version>
+        <version>${hibernate.version}</version>
     </dependency>
     
     <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
 	<dependency>
 	    <groupId>org.hibernate</groupId>
 	    <artifactId>hibernate-validator</artifactId>
-	    <version>5.2.3.Final</version>
+	    <version>${hibernate.version}</version>
 	</dependency>
 	
 	<!-- https://mvnrepository.com/artifact/javax.el/javax.el-api -->
@@ -91,7 +98,7 @@
 	<dependency>
 	    <groupId>org.hibernate</groupId>
 	    <artifactId>hibernate-validator-cdi</artifactId>
-	    <version>5.2.3.Final</version>
+	    <version>${hibernate.version}</version>
 	</dependency>
     
     <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
@@ -144,6 +151,38 @@
 	    <artifactId>standard</artifactId>
 	    <version>1.1.2</version>
 	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context</artifactId>
+	    <version>${springframework.version}</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
+	<dependency>
+	    <groupId>org.springframework.security</groupId>
+	    <artifactId>spring-security-core</artifactId>
+	    <version>${springsecurity.version}</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
+	<dependency>
+	    <groupId>org.springframework.security</groupId>
+	    <artifactId>spring-security-web</artifactId>
+	    <version>${springsecurity.version}</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
+	<dependency>
+	    <groupId>org.springframework.security</groupId>
+	    <artifactId>spring-security-config</artifactId>
+	    <version>${springsecurity.version}</version>
+	</dependency>
+	
+	
+	
+	
 	 
   </dependencies>
 </project>

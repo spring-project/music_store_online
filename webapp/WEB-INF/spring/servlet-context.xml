@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 	http://www.springframework.org/schema/context 
@@ -9,7 +12,9 @@
 	http://www.springframework.org/schema/mvc 
     http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
 	http://www.springframework.org/schema/tx
-    http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+    http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+    http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 	<mvc:annotation-driven />
 
@@ -57,6 +62,25 @@
 		<property name="maxUploadSize" value="10485760"/>
 	</bean>
 	
-
 	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<security:http auto-config="true">
+		<security:intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
+		<security:form-login login-page="/login" 
+			default-target-url="/admin/" 
+			authentication-failure-url="/login?error"
+			username-parameter="username"
+			password-parameter="password"/>
+		<security:logout logout-success-url="/login?logout"/>
+	</security:http>
+	
+	<security:authentication-manager>
+		<security:authentication-provider>
+		<security:jdbc-user-service 
+			data-source-ref="dataSource"
+			authorities-by-username-query="SELECT username, authority FROM authorities WHERE username = ?"
+			users-by-username-query="SELECT username, password, enabled FROM users WHERE username = ?"/>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
 </beans>
