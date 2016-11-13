@@ -77,6 +77,7 @@ public class ProductController {
 		}
 		ModelAndView mav = new ModelAndView("admin/products/show");
 		mav.addObject("product", productService.findId(id));
+		mav.addObject("cartId", request.getSession(true).getId());
 		return mav;
 	}
 	

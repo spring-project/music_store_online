@@ -8,6 +8,7 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Music Store Online ${ pageTitle }</title>
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/bootstrap.min.css"/>" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
 		<script src="<c:url value="/resources/js/jquery-1.9.1.min.js"/>"></script>
 		<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
 	</head>

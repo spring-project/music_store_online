@@ -5,7 +5,7 @@
 
 <%@ include file="../includes/header.jsp" %>
 
-<div class="container">
+<div class="container" ng-app="cartApp" ng-controller="cartCtrl">
 	<br/>
 	<div class="panel panel-default">
 		<div class="panel-body">
@@ -35,12 +35,37 @@
 							<p>${ product.description }</p>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-3">
+				
+					<p>
+						<strong>Check the User role</strong> that change back link of 
+						<strong>[ Back to Product list ]</strong> and <strong>[ Continues Shopping ]</strong></p>
+						
+					<div class="alert alert-success">
+						<strong>Note: </strong>After you add product to cart, you should your cart.
+					</div>						
+				
+					<c:set scope="page" var="role" value="${ param.role }"/>
+					<c:set scope="page" var="link" value="/products"/>
+					<c:if test="${ role == 'admin' }">
+						<c:set scope="page" var="link" value="/admin/products"/>
+					</c:if>
+					
+					<div class="row" ng-init="cartId = '${ cartId }'">
+						<div class="col-xs-12 col-sm-3">
+							<a class="btn btn-sm btn-block btn-success" ng-click="addToCart(${ product.id })">
+								<span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;&nbsp;Add to cart
+							</a>
+						</div>
+						<div class="col-xs-12 col-sm-3">
+							<a class="btn btn-sm btn-block btn-warning" href="<c:url value="/admin/carts"/>">
+								<span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;&nbsp;View cart
+							</a>
+						</div>
+						<div class="col-xs-12 col-sm-3">
 							<a class="btn btn-sm btn-block btn-primary" href="<c:url value="/admin/products/edit/${ product.id }"/>">Edit this Product</a>
 						</div>
-						<div class="col-md-offset-6 col-md-3 text-right">
-							<a class="btn btn-sm btn-block btn-default" href="<c:url value="/admin/products"/>">Back to Product list</a>
+						<div class="col-xs-12 col-sm-3 text-right">
+							<a class="btn btn-sm btn-block btn-default" href="<c:url value="${ link }"/>">Back to Product list</a>
 						</div>
 					</div>
 					<br/>
@@ -50,4 +75,5 @@
 	</div>
 </div>
 
+<script src="<c:url value="/resources/js/controllers.js"/>"></script>
 <%@ include file="../includes/footer.jsp" %>

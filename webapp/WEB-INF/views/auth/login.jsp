@@ -23,7 +23,7 @@
 
 		<div class="form-group">
 			<label for="username">Username:</label>
-		    <input type="text" name="username1" class="form-control"/>
+		    <input type="text" name="username" class="form-control"/>
 		</div>
 		
 		<div class="form-group">
